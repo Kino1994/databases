@@ -8,14 +8,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Controller;
 
+import es.joaquin.planes.dtos.CrewStatsDTO;
 import es.joaquin.planes.dtos.MechanicOverhaulDTO;
 import es.joaquin.planes.entities.Airport;
 import es.joaquin.planes.entities.Crew;
+import es.joaquin.planes.entities.CrewFlight;
 import es.joaquin.planes.entities.Flight;
 import es.joaquin.planes.entities.Mechanic;
 import es.joaquin.planes.entities.Overhaul;
 import es.joaquin.planes.entities.Plane;
 import es.joaquin.planes.repository.AirportRepository;
+import es.joaquin.planes.repository.CrewFlightRepository;
 import es.joaquin.planes.repository.CrewRepository;
 import es.joaquin.planes.repository.FlightRepository;
 import es.joaquin.planes.repository.MechanicRepository;
@@ -35,13 +38,17 @@ public class DataLoader implements CommandLineRunner {
 	private CrewRepository crewRepository;
 	
 	@Autowired
+	private FlightRepository flightRepository;	
+	
+	@Autowired
+	private CrewFlightRepository crewFlightRepository;
+	
+	@Autowired
 	private MechanicRepository mechanicRepository;
 	
 	@Autowired
-	private OverhaulRepository overhaulRepository;	
-	
-	@Autowired
-	private FlightRepository flightRepository;	
+	private OverhaulRepository overhaulRepository;		
+		
 	
 	@Override
 	public void run(String... args) throws Exception {
@@ -83,80 +90,80 @@ public class DataLoader implements CommandLineRunner {
 		airportRepository.save(a5);	
 		airportRepository.save(a6);
 		
-		Crew c1 = new Crew("00001", "Joaquin", "De Vicente", "commander", "Iberia", null);
-		Crew c2 = new Crew("00002", "Antonio", "Vazquez", "co-pilot", "Iberia", null);
-		Crew c3 = new Crew("00003", "Lucas", "Gonzalez", "flight attendant", "Iberia", null);
+		Crew c1 = new Crew("00001", "Joaquin", "De Vicente", "commander", "Iberia");
+		Crew c2 = new Crew("00002", "Antonio", "Vazquez", "co-pilot", "Iberia");
+		Crew c3 = new Crew("00003", "Lucas", "Gonzalez", "flight attendant", "Iberia");
 		
 		List<Crew> iberiaCrew = new ArrayList<Crew>();
 		iberiaCrew.add(c1);
 		iberiaCrew.add(c2);		
 		iberiaCrew.add(c3);
 		
-		Crew c4 = new Crew("00004", "Patricia", "Lopez", "commander", "Air Europa", null);
-		Crew c5 = new Crew("00005", "Maria", "Perez", "co-pilot", "Air Europa", null);
-		Crew c6 = new Crew("00006", "Ana", "Marquez", "flight attendant", "Air Europa", null);
+		Crew c4 = new Crew("00004", "Patricia", "Lopez", "commander", "Air Europa");
+		Crew c5 = new Crew("00005", "Maria", "Perez", "co-pilot", "Air Europa");
+		Crew c6 = new Crew("00006", "Ana", "Marquez", "flight attendant", "Air Europa");
 		
 		List<Crew> europeCrew = new ArrayList<Crew>();
 		europeCrew.add(c4);
 		europeCrew.add(c5);		
 		europeCrew.add(c6);
 		
-		Crew c7 = new Crew("00007", "Santiago", "Candela", "commander", "Air France", null);
-		Crew c8 = new Crew("00008", "Javier", "Brotons", "co-pilot", "Air France", null);
-		Crew c9 = new Crew("00009", "Santy", "Lerma", "flight attendant", "Air France", null);
+		Crew c7 = new Crew("00007", "Santiago", "Candela", "commander", "Air France");
+		Crew c8 = new Crew("00008", "Javier", "Brotons", "co-pilot", "Air France");
+		Crew c9 = new Crew("00009", "Santy", "Lerma", "flight attendant", "Air France");
 		
 		List<Crew> franceCrew = new ArrayList<Crew>();
 		franceCrew.add(c7);
 		franceCrew.add(c8);		
 		franceCrew.add(c9);
 		
-		Crew c10 = new Crew("00010", "Carlos", "Antono", "commander", "British Airways", null);
-		Crew c11 = new Crew("00011", "Lara", "Tisner", "co-pilot", "British Airways", null);
-		Crew c12 = new Crew("00012", "Beatriz", "Sosa", "flight attendant", "British Airways", null);
+		Crew c10 = new Crew("00010", "Carlos", "Antono", "commander", "British Airways");
+		Crew c11 = new Crew("00011", "Lara", "Tisner", "co-pilot", "British Airways");
+		Crew c12 = new Crew("00012", "Beatriz", "Sosa", "flight attendant", "British Airways");
 		
 		List<Crew> britishCrew = new ArrayList<Crew>();
 		britishCrew.add(c10);
 		britishCrew.add(c11);		
 		britishCrew.add(c12);
 		
-		Crew c13 = new Crew("00013", "Miguel", "Gomez", "commander", "American Airlines", null);
-		Crew c14 = new Crew("00014", "ALvaro", "Silva", "co-pilot", "American Airlines", null);
-		Crew c15 = new Crew("00015", "Celia", "Garvi", "flight attendant", "American Airlines", null);
+		Crew c13 = new Crew("00013", "Miguel", "Gomez", "commander", "American Airlines");
+		Crew c14 = new Crew("00014", "ALvaro", "Silva", "co-pilot", "American Airlines");
+		Crew c15 = new Crew("00015", "Celia", "Garvi", "flight attendant", "American Airlines");
 		
 		List<Crew> americanCrew = new ArrayList<Crew>();
 		americanCrew.add(c13);
 		americanCrew.add(c14);		
 		americanCrew.add(c15);	
 				
-		Flight f1 = new Flight("0000001","Iberia",p1, a1, a2, new Date(System.currentTimeMillis()+10000000),1.0, null);
-		Flight f2 = new Flight("0000002","Air Europa",p2, a1, a3, new Date(System.currentTimeMillis()+15000000),2.0, null);
-		Flight f3 = new Flight("0000003","Air France",p3, a1, a4, new Date(System.currentTimeMillis()+20000000),3.0, null);
-		Flight f4 = new Flight("0000004","British Airways",p4, a1, a5, new Date(System.currentTimeMillis()+25000000),4.0, null);
-		Flight f5 = new Flight("0000005","American Airlines",p5, a1, a6, new Date(System.currentTimeMillis()+30000000),5.0, null);
+		Flight f1 = new Flight("0000001","Iberia",p1, a1, a2, new Date(System.currentTimeMillis()+10000000),1.0);
+		Flight f2 = new Flight("0000002","Air Europa",p2, a1, a3, new Date(System.currentTimeMillis()+15000000),2.0);
+		Flight f3 = new Flight("0000003","Air France",p3, a1, a4, new Date(System.currentTimeMillis()+20000000),3.0);
+		Flight f4 = new Flight("0000004","British Airways",p4, a1, a5, new Date(System.currentTimeMillis()+25000000),4.0);
+		Flight f5 = new Flight("0000005","American Airlines",p5, a1, a6, new Date(System.currentTimeMillis()+30000000),5.0);
 		
-		Flight f6 = new Flight("0000006","Iberia",p6, a2, a1, new Date(System.currentTimeMillis()+35000000),1.0, null);
-		Flight f7 = new Flight("0000007","Air Europa",p7, a2, a3, new Date(System.currentTimeMillis()+40000000),2.0, null);
-		Flight f8 = new Flight("0000008","Air France",p8, a2, a4, new Date(System.currentTimeMillis()+45000000),3.0, null);
-		Flight f9 = new Flight("0000009","British Airways",p9, a2, a5, new Date(System.currentTimeMillis()+50000000),4.0, null);
-		Flight f10 = new Flight("0000010","American Airlines",p10, a2, a6, new Date(System.currentTimeMillis()+55000000),5.0, null);
+		Flight f6 = new Flight("0000006","Iberia",p6, a2, a1, new Date(System.currentTimeMillis()+35000000),1.0);
+		Flight f7 = new Flight("0000007","Air Europa",p7, a2, a3, new Date(System.currentTimeMillis()+40000000),2.0);
+		Flight f8 = new Flight("0000008","Air France",p8, a2, a4, new Date(System.currentTimeMillis()+45000000),3.0);
+		Flight f9 = new Flight("0000009","British Airways",p9, a2, a5, new Date(System.currentTimeMillis()+50000000),4.0);
+		Flight f10 = new Flight("0000010","American Airlines",p10, a2, a6, new Date(System.currentTimeMillis()+55000000),5.0);
 		
-		Flight f11 = new Flight("0000011","Iberia",p1, a3, a1, new Date(System.currentTimeMillis()+60000000),1.0, null);
-		Flight f12 = new Flight("0000012","Air Europa",p2, a3, a2, new Date(System.currentTimeMillis()+65000000),2.0, null);
-		Flight f13 = new Flight("0000013","Air France",p3, a3, a4, new Date(System.currentTimeMillis()+70000000),3.0, null);
-		Flight f14 = new Flight("0000014","British Airways",p4, a3, a5, new Date(System.currentTimeMillis()+75000000),4.0, null);
-		Flight f15 = new Flight("0000015","American Airlines",p5, a3, a6, new Date(System.currentTimeMillis()+80000000),5.0, null);
+		Flight f11 = new Flight("0000011","Iberia",p1, a3, a1, new Date(System.currentTimeMillis()+60000000),1.0);
+		Flight f12 = new Flight("0000012","Air Europa",p2, a3, a2, new Date(System.currentTimeMillis()+65000000),2.0);
+		Flight f13 = new Flight("0000013","Air France",p3, a3, a4, new Date(System.currentTimeMillis()+70000000),3.0);
+		Flight f14 = new Flight("0000014","British Airways",p4, a3, a5, new Date(System.currentTimeMillis()+75000000),4.0);
+		Flight f15 = new Flight("0000015","American Airlines",p5, a3, a6, new Date(System.currentTimeMillis()+80000000),5.0);
 		
-		Flight f16 = new Flight("0000016","Iberia",p6, a4, a1, new Date(System.currentTimeMillis()+85000000),1.0, null);
-		Flight f17 = new Flight("0000017","Air Europa",p7, a4, a2, new Date(System.currentTimeMillis()+90000000),2.0, null);
-		Flight f18 = new Flight("0000018","Air France",p8, a4, a3, new Date(System.currentTimeMillis()+95000000),3.0, null);
-		Flight f19 = new Flight("0000019","British Airways",p9, a4, a5, new Date(System.currentTimeMillis()+10000000),4.0, null);
-		Flight f20 = new Flight("0000020","American Airlines",p10, a4, a6, new Date(System.currentTimeMillis()+15000000),5.0, null);
+		Flight f16 = new Flight("0000016","Iberia",p6, a4, a1, new Date(System.currentTimeMillis()+85000000),1.0);
+		Flight f17 = new Flight("0000017","Air Europa",p7, a4, a2, new Date(System.currentTimeMillis()+90000000),2.0);
+		Flight f18 = new Flight("0000018","Air France",p8, a4, a3, new Date(System.currentTimeMillis()+95000000),3.0);
+		Flight f19 = new Flight("0000019","British Airways",p9, a4, a5, new Date(System.currentTimeMillis()+10000000),4.0);
+		Flight f20 = new Flight("0000020","American Airlines",p10, a4, a6, new Date(System.currentTimeMillis()+15000000),5.0);
 		
-		Flight f21 = new Flight("0000021","Iberia",p1, a5, a1, new Date(System.currentTimeMillis()+20000000),1.0, null);
-		Flight f22 = new Flight("0000022","Air Europa",p2, a5, a2, new Date(System.currentTimeMillis()+25000000),2.0, null);
-		Flight f23 = new Flight("0000023","Air France",p3, a5, a3, new Date(System.currentTimeMillis()+30000000),3.0, null);
-		Flight f24 = new Flight("0000024","British Airways",p4, a5, a4, new Date(System.currentTimeMillis()+30000000),4.0, null);
-		Flight f25 = new Flight("0000025","American Airlines",p5, a5, a6, new Date(System.currentTimeMillis()+35000000),5.0, null);
+		Flight f21 = new Flight("0000021","Iberia",p1, a5, a1, new Date(System.currentTimeMillis()+20000000),1.0);
+		Flight f22 = new Flight("0000022","Air Europa",p2, a5, a2, new Date(System.currentTimeMillis()+25000000),2.0);
+		Flight f23 = new Flight("0000023","Air France",p3, a5, a3, new Date(System.currentTimeMillis()+30000000),3.0);
+		Flight f24 = new Flight("0000024","British Airways",p4, a5, a4, new Date(System.currentTimeMillis()+30000000),4.0);
+		Flight f25 = new Flight("0000025","American Airlines",p5, a5, a6, new Date(System.currentTimeMillis()+35000000),5.0);
 		
 		flightRepository.save(f1);
 		flightRepository.save(f2);
@@ -184,51 +191,55 @@ public class DataLoader implements CommandLineRunner {
 		flightRepository.save(f24);
 		flightRepository.save(f25);
 		
-		for (Crew c : iberiaCrew) {
-			c.setFlight(f1);
-			c.setFlight(f6);
-			c.setFlight(f11);
-			c.setFlight(f16);
-			c.setFlight(f21);
-		}
-		
-		for (Crew c : europeCrew) {
-			c.setFlight(f2);
-			c.setFlight(f7);
-			c.setFlight(f12);
-			c.setFlight(f17);
-			c.setFlight(f22);
-		}
-		
-		for (Crew c : franceCrew) {
-			c.setFlight(f3);
-			c.setFlight(f8);
-			c.setFlight(f13);
-			c.setFlight(f18);
-			c.setFlight(f23);
-		}
-		
-		for (Crew c : britishCrew) {
-			c.setFlight(f4);
-			c.setFlight(f9);
-			c.setFlight(f14);
-			c.setFlight(f19);
-			c.setFlight(f24);
-		}
-		
-		for (Crew c : americanCrew) {
-			c.setFlight(f5);
-			c.setFlight(f10);
-			c.setFlight(f15);
-			c.setFlight(f20);
-			c.setFlight(f25);
-		}
-		
 		crewRepository.saveAll(iberiaCrew);
 		crewRepository.saveAll(europeCrew);
 		crewRepository.saveAll(franceCrew);
 		crewRepository.saveAll(britishCrew);
 		crewRepository.saveAll(americanCrew);
+		
+		List<CrewFlight> rels = new ArrayList<>();
+		
+		for (Crew c : iberiaCrew) {
+			rels.add(new CrewFlight(c,f1));
+			rels.add(new CrewFlight(c,f6));
+			rels.add(new CrewFlight(c,f11));
+			rels.add(new CrewFlight(c,f16));
+			rels.add(new CrewFlight(c,f21));
+		}
+		
+		for (Crew c : europeCrew) {
+			rels.add(new CrewFlight(c,f2));
+			rels.add(new CrewFlight(c,f7));
+			rels.add(new CrewFlight(c,f12));
+			rels.add(new CrewFlight(c,f17));
+			rels.add(new CrewFlight(c,f22));
+		}
+		
+		for (Crew c : franceCrew) {
+			rels.add(new CrewFlight(c,f3));
+			rels.add(new CrewFlight(c,f8));
+			rels.add(new CrewFlight(c,f13));
+			rels.add(new CrewFlight(c,f18));
+			rels.add(new CrewFlight(c,f23));
+		}
+		
+		for (Crew c : britishCrew) {
+			rels.add(new CrewFlight(c,f4));
+			rels.add(new CrewFlight(c,f9));
+			rels.add(new CrewFlight(c,f14));
+			rels.add(new CrewFlight(c,f19));
+			rels.add(new CrewFlight(c,f24));
+		}
+		
+		for (Crew c : americanCrew) {
+			rels.add(new CrewFlight(c,f5));
+			rels.add(new CrewFlight(c,f10));
+			rels.add(new CrewFlight(c,f15));
+			rels.add(new CrewFlight(c,f20));
+			rels.add(new CrewFlight(c,f25));
+		}
+		
+		crewFlightRepository.saveAll(rels);
 		
 		Mechanic m1 = new Mechanic("00016", "Andres", "Lopez", "Iberia", 1972, "PhD Aeronautical engineering");
 		Mechanic m2 = new Mechanic("00017", "Ruben", "Blanco", "Air Europa", 1976, "Aeronautical engineering Degree");
@@ -250,14 +261,42 @@ public class DataLoader implements CommandLineRunner {
 		overhaulRepository.save(o3);
 		overhaulRepository.save(o4);
 		overhaulRepository.save(o5);
-		overhaulRepository.save(o6);		
+		overhaulRepository.save(o6);	
+		
+		
+		System.out.println("----------------------------------------");
+		System.out.println("Primera consulta: Para cada avión, mostrar el nombre y apellidos de los mecánicos responsables de sus revisiones.");
+		System.out.println("----------------------------------------");
 		
 		
 		List<MechanicOverhaulDTO> mechanicOverhauls = overhaulRepository.findMechanicsfromOverhaul();
 		
-		for (MechanicOverhaulDTO m : mechanicOverhauls) {
-			System.out.println(m.toString());
+		for (MechanicOverhaulDTO mechanic : mechanicOverhauls) {
+			System.out.println(mechanic.toString());
 		}
+		
+		System.out.println("----------------------------------------");
+		System.out.println("Dado el nombre de una ciudad y una fecha, listado de los vuelos que han aterrizado (destino) en los aeropuertos de esa ciudad en esa fecha, ordenados por hora.");
+		System.out.println("----------------------------------------");
+		
+		
+		System.out.println("----------------------------------------");
+		System.out.println("Dado el código de empleado de un tripulante, mostrar su nombre y apellidos y las ciudades desde las que ha despegado junto con la fecha en que despegó.");
+		System.out.println("----------------------------------------");
+		
+		System.out.println("----------------------------------------");
+		System.out.println("Para cada tripulante, mostrar su nombre y apellidos junto con su número total de vuelos y la suma de horas de estos.");
+		System.out.println("----------------------------------------");
+		
+		List<CrewStatsDTO> crewStats = crewRepository.findCrewStats();
+			
+		for (CrewStatsDTO crew : crewStats) {
+			System.out.println(crew.toString());
+		}
+			
+		System.out.println("----------------------------------------");
+
+		 
 		
 	}
 

@@ -30,6 +30,14 @@ public class Plane {
 		this.model = model;
 		this.flight_hours = flight_hours;
 	}
+	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getTail_number() {
 		return tail_number;

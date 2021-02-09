@@ -50,8 +50,6 @@ public class Overhaul {
 		this.airport = airport;
 	}
 
-
-
 	public Long getId() {
 		return id;
 	}

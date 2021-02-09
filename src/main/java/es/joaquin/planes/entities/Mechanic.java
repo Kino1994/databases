@@ -26,6 +26,15 @@ public class Mechanic extends Employee {
 		this.employed_since = employed_since;
 		this.education = education;
 	}
+	
+	public Long getId() {
+		return super.getId();
+	}
+
+	public void setId(Long id) {
+		super.setId(id);
+	}
+
 
 	public String getCompany() {
 		return company;

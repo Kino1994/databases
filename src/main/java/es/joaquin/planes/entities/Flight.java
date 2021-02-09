@@ -1,8 +1,10 @@
 package es.joaquin.planes.entities;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -34,16 +36,15 @@ public class Flight {
 	
 	private Double duration;
 	
-    @OneToMany(mappedBy="flight")
-	private List<Crew> crew;
+    @OneToMany(mappedBy = "flight", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CrewFlight> crewflights = new ArrayList<>();
     
     public Flight() {
 			
 	}
-    
 
 	public Flight(String code, String company, Plane plane, Airport departure, Airport arrival,
-			Date departure_time, Double duration, List<Crew> crew) {
+			Date departure_time, Double duration) {
 		this.code = code;
 		this.company = company;
 		this.plane = plane;
@@ -51,7 +52,14 @@ public class Flight {
 		this.arrival = arrival;
 		this.departure_time = departure_time;
 		this.duration = duration;
-		this.crew = crew;
+	}
+	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getCode() {
@@ -110,14 +118,22 @@ public class Flight {
 		this.duration = duration;
 	}
 
-	public List<Crew> getCrew() {
-		return crew;
+	public Date getDeparture_time() {
+		return departure_time;
 	}
 
-	public void setCrew(List<Crew> crew) {
-		this.crew = crew;
+	public void setDeparture_time(Date departure_time) {
+		this.departure_time = departure_time;
 	}
-	
+
+	public List<CrewFlight> getCrewflights() {
+		return crewflights;
+	}
+
+	public void setCrewflights(List<CrewFlight> crewflights) {
+		this.crewflights = crewflights;
+	}
+
 	@Override
     public String toString() {
         return  "code=" + code + ", company=" + company + ", plane=" + plane.getTail_number()
