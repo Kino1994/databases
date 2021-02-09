@@ -1,5 +1,6 @@
 package es.joaquin.planes;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Controller;
 
+import es.joaquin.planes.dtos.CrewDeparturesDTO;
 import es.joaquin.planes.dtos.CrewStatsDTO;
 import es.joaquin.planes.dtos.MechanicOverhaulDTO;
 import es.joaquin.planes.entities.Airport;
@@ -279,11 +281,27 @@ public class DataLoader implements CommandLineRunner {
 		System.out.println("Dado el nombre de una ciudad y una fecha, listado de los vuelos que han aterrizado (destino) en los aeropuertos de esa ciudad en esa fecha, ordenados por hora.");
 		System.out.println("----------------------------------------");
 		
+		String pattern = "yyyy-MM-dd";
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+		String dateFormat = simpleDateFormat.format(new Date());
+		
+		List<Flight> flights = flightRepository.findByCity("Madrid", dateFormat);
+		
+		for (Flight flight : flights) {
+			System.out.println(flight.toString());
+		}
+		
 		
 		System.out.println("----------------------------------------");
 		System.out.println("Dado el código de empleado de un tripulante, mostrar su nombre y apellidos y las ciudades desde las que ha despegado junto con la fecha en que despegó.");
 		System.out.println("----------------------------------------");
 		
+		List<CrewDeparturesDTO> crewDepartures = crewRepository.findDeparturesByCode("0000001");
+		
+		for (CrewDeparturesDTO crew : crewDepartures) {
+			System.out.println(crew.toString());
+		}
+			
 		System.out.println("----------------------------------------");
 		System.out.println("Para cada tripulante, mostrar su nombre y apellidos junto con su número total de vuelos y la suma de horas de estos.");
 		System.out.println("----------------------------------------");
@@ -294,11 +312,8 @@ public class DataLoader implements CommandLineRunner {
 			System.out.println(crew.toString());
 		}
 			
-		System.out.println("----------------------------------------");
-
-		 
+		System.out.println("----------------------------------------");		 
 		
 	}
-
 
 }

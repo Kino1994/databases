@@ -9,7 +9,7 @@ import es.joaquin.planes.entities.Flight;
 
 public interface FlightRepository extends JpaRepository<Flight, Long> {
 	
-	@Query("SELECT f FROM Flight f WHERE f.departure.city = ?1")
-	List<Flight> findByCity(String city);
-
+	@Query("SELECT f FROM Flight f join Airport a ON f.arrival = a where a.city = ?1 and function('date_format', f.departure_time, '%Y-%m-%d') = ?2 ORDER BY f.departure_time")
+	List<Flight> findByCity(String city, String date);
+	
 }

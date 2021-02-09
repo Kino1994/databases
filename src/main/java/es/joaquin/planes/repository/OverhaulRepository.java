@@ -10,7 +10,7 @@ import es.joaquin.planes.entities.Overhaul;
 
 public interface OverhaulRepository extends JpaRepository<Overhaul, Long> {
 	
-    @Query(value = "select new es.joaquin.planes.dtos.MechanicOverhaulDTO(o.plane.tail_number, o.mechanic.name, o.mechanic.surname) from Overhaul o")
+    @Query(value = "SELECT new es.joaquin.planes.dtos.MechanicOverhaulDTO(o.plane.tail_number, o.mechanic.name, o.mechanic.surname) FROM Overhaul o")
     List<MechanicOverhaulDTO> findMechanicsfromOverhaul();	
 
 }

@@ -13,7 +13,7 @@ public class CrewStatsDTO {
 	private Double total_flight_hours;
 	
 	public CrewStatsDTO() {
-		super();
+
 	}
 
 	public CrewStatsDTO(String code, String name, String surname, Long total_flights, Double total_flight_hours) {
