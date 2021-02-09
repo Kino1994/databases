@@ -278,7 +278,7 @@ public class DataLoader implements CommandLineRunner {
 		}
 		
 		System.out.println("----------------------------------------");
-		System.out.println("Dado el nombre de una ciudad y una fecha, listado de los vuelos que han aterrizado (destino) en los aeropuertos de esa ciudad en esa fecha, ordenados por hora.");
+		System.out.println("Segunda consulta: Dado el nombre de una ciudad y una fecha, listado de los vuelos que han aterrizado (destino) en los aeropuertos de esa ciudad en esa fecha, ordenados por hora.");
 		System.out.println("----------------------------------------");
 		
 		String pattern = "yyyy-MM-dd";
@@ -293,7 +293,7 @@ public class DataLoader implements CommandLineRunner {
 		
 		
 		System.out.println("----------------------------------------");
-		System.out.println("Dado el código de empleado de un tripulante, mostrar su nombre y apellidos y las ciudades desde las que ha despegado junto con la fecha en que despegó.");
+		System.out.println("Tercera consulta: Dado el código de empleado de un tripulante, mostrar su nombre y apellidos y las ciudades desde las que ha despegado junto con la fecha en que despegó.");
 		System.out.println("----------------------------------------");
 		
 		List<CrewDeparturesDTO> crewDepartures = crewRepository.findDeparturesByCode("0000001");
@@ -303,7 +303,7 @@ public class DataLoader implements CommandLineRunner {
 		}
 			
 		System.out.println("----------------------------------------");
-		System.out.println("Para cada tripulante, mostrar su nombre y apellidos junto con su número total de vuelos y la suma de horas de estos.");
+		System.out.println("Cuarta consulta: Para cada tripulante, mostrar su nombre y apellidos junto con su número total de vuelos y la suma de horas de estos.");
 		System.out.println("----------------------------------------");
 		
 		List<CrewStatsDTO> crewStats = crewRepository.findCrewStats();
