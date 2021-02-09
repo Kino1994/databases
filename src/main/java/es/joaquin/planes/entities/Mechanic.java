@@ -2,7 +2,7 @@ package es.joaquin.planes.entities;
 
 public class Mechanic {
 	
-	private String code;
+	private String id;
 	
 	private String name;
 	
@@ -12,6 +12,6 @@ public class Mechanic {
 	
 	private Integer employed_since;
 	
-	private String education; // ENUM?
+	private String education;
 
 }

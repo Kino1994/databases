@@ -2,7 +2,7 @@ package es.joaquin.planes.entities;
 
 public class Airport {
 	
-	private String code;
+	private String id;
 	
 	private String name;
 	

@@ -10,11 +10,11 @@ public class Overhaul {
 	
 	private Date end_date;
 	
-	private Integer spent_hours;
+	private Double spent_hours;
 	
 	private Mechanic mechanic;
 	
-	private String type; // ENUM?
+	private String type;
 	
 	private String description;
 	

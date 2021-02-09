@@ -5,19 +5,19 @@ import java.util.List;
 
 public class Flight {
 	
-	private String code;
+	private String id;
 	
 	private String company;
 	
 	private Plane plane;
 	
-	private Airport departure_airport;
+	private Airport departure;
 	
-	private Airport arrival_airport;
+	private Airport arrival;
 	
 	private Timestamp departure_time;
 	
-	private double duration;
+	private Double duration;
 	
 	private List<Crew> crew;
 	
