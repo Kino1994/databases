@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Controller;
 
+import es.joaquin.planes.dtos.MechanicOverhaulDTO;
 import es.joaquin.planes.entities.Airport;
 import es.joaquin.planes.entities.Crew;
 import es.joaquin.planes.entities.Flight;
@@ -251,6 +252,12 @@ public class DataLoader implements CommandLineRunner {
 		overhaulRepository.save(o5);
 		overhaulRepository.save(o6);		
 		
+		
+		List<MechanicOverhaulDTO> mechanicOverhauls = overhaulRepository.findMechanicsfromOverhaul();
+		
+		for (MechanicOverhaulDTO m : mechanicOverhauls) {
+			System.out.println(m.toString());
+		}
 		
 	}
 
