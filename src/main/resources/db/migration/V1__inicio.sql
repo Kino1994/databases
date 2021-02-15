@@ -17,6 +17,18 @@ CREATE TABLE `airport` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
+-- plane definition
+
+CREATE TABLE `plane` (
+  `id` bigint NOT NULL,
+  `flight_hours` int DEFAULT NULL,
+  `manufacturer` varchar(255) DEFAULT NULL,
+  `model` varchar(255) DEFAULT NULL,
+  `tail_number` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
 -- crew definition
 
 CREATE TABLE `crew` (
@@ -26,32 +38,6 @@ CREATE TABLE `crew` (
   `surname` varchar(255) DEFAULT NULL,
   `company` varchar(255) DEFAULT NULL,
   `position` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
-
--- mechanic definition
-
-CREATE TABLE `mechanic` (
-  `id` bigint NOT NULL,
-  `code` varchar(255) DEFAULT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `surname` varchar(255) DEFAULT NULL,
-  `company` varchar(255) DEFAULT NULL,
-  `education` varchar(255) DEFAULT NULL,
-  `employed_since` int DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
-
--- plane definition
-
-CREATE TABLE `plane` (
-  `id` bigint NOT NULL,
-  `flight_hours` int DEFAULT NULL,
-  `manufacturer` varchar(255) DEFAULT NULL,
-  `model` varchar(255) DEFAULT NULL,
-  `tail_number` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -77,6 +63,32 @@ CREATE TABLE `flight` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
+-- crew_flight definition
+
+CREATE TABLE `crew_flight` (
+  `crew_id` bigint NOT NULL,
+  `flight_id` bigint NOT NULL,
+  PRIMARY KEY (`crew_id`,`flight_id`),
+  KEY `FK81gm6l07kchyrgh480tmr5a21` (`flight_id`),
+  CONSTRAINT `FK81gm6l07kchyrgh480tmr5a21` FOREIGN KEY (`flight_id`) REFERENCES `flight` (`id`),
+  CONSTRAINT `FKj2cms2qaljf8uuyg77gdr6um` FOREIGN KEY (`crew_id`) REFERENCES `crew` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+-- mechanic definition
+
+CREATE TABLE `mechanic` (
+  `id` bigint NOT NULL,
+  `code` varchar(255) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `surname` varchar(255) DEFAULT NULL,
+  `company` varchar(255) DEFAULT NULL,
+  `education` varchar(255) DEFAULT NULL,
+  `employed_since` int DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
 -- overhaul definition
 
 CREATE TABLE `overhaul` (
@@ -96,18 +108,6 @@ CREATE TABLE `overhaul` (
   CONSTRAINT `FK4u9u5nq20cb1rcubjg5howiwt` FOREIGN KEY (`plane_id`) REFERENCES `plane` (`id`),
   CONSTRAINT `FK7spsq6vvs53evo06ujlni8st4` FOREIGN KEY (`airport_id`) REFERENCES `airport` (`id`),
   CONSTRAINT `FKp1ip1jo0l1plb4bjhfekx2m73` FOREIGN KEY (`mechanic_id`) REFERENCES `mechanic` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
-
--- crew_flight definition
-
-CREATE TABLE `crew_flight` (
-  `crew_id` bigint NOT NULL,
-  `flight_id` bigint NOT NULL,
-  PRIMARY KEY (`crew_id`,`flight_id`),
-  KEY `FK81gm6l07kchyrgh480tmr5a21` (`flight_id`),
-  CONSTRAINT `FK81gm6l07kchyrgh480tmr5a21` FOREIGN KEY (`flight_id`) REFERENCES `flight` (`id`),
-  CONSTRAINT `FKj2cms2qaljf8uuyg77gdr6um` FOREIGN KEY (`crew_id`) REFERENCES `crew` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
@@ -292,6 +292,11 @@ INSERT INTO overhaul (id,description,end_date,spent_hours,start_date,`type`,airp
 	 (64,'No overhauls found','2021-02-16 12:51:39.858000',1.0,'2021-02-16 01:44:58.716000','periodical',13,58,7),
 	 (65,'Engine is damage','2021-02-16 15:38:19.858000',9.0,'2021-02-16 01:44:58.716000','reparation',14,58,8);
 	 
+
+-- sequence insert	 
+
 	 
-	
+INSERT INTO test.hibernate_sequence (next_val) VALUES (66);
 	 
+	 
+

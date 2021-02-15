@@ -138,8 +138,7 @@ public class Flight {
     public String toString() {
         return  "code=" + code + ", company=" + company + ", plane=" + plane.getTail_number()
         	+ ", departure=" + departure.getCode() + ", arrival=" + arrival.getCode()
-        	+ ", departure_date_time=" + departure_time + ", departure_hour_time=" + departure_time
-        	+ ", duration=" + duration;
+        	+ ", departure_date_time=" + departure_time + ", duration=" + duration;
     }
 	
 }
