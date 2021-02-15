@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -296,7 +297,8 @@ public class DataLoader implements CommandLineRunner {
 		System.out.println("Tercera consulta: Dado el código de empleado de un tripulante, mostrar su nombre y apellidos y las ciudades desde las que ha despegado junto con la fecha en que despegó.");
 		System.out.println("----------------------------------------");
 		
-		List<CrewDeparturesDTO> crewDepartures = crewRepository.findDeparturesByCode("0000001");
+		List<CrewDeparturesDTO> crewDepartures = crewRepository.findDeparturesByCode()
+			.stream().filter(c -> c.getCode().equals("0000001")).collect(Collectors.toList());
 		
 		for (CrewDeparturesDTO crew : crewDepartures) {
 			System.out.println(crew.toString());
