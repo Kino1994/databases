@@ -36,15 +36,17 @@ public class Flight {
 	
 	private Double duration;
 	
+    private String crewMembers;
+	
     @OneToMany(mappedBy = "flight", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CrewFlight> crewflights = new ArrayList<>();
     
     public Flight() {
 			
 	}
-
+	
 	public Flight(String code, String company, Plane plane, Airport departure, Airport arrival,
-			Date departure_time, Double duration) {
+			Date departure_time, Double duration, String crewMembers, List<CrewFlight> crewflights) {
 		this.code = code;
 		this.company = company;
 		this.plane = plane;
@@ -52,8 +54,10 @@ public class Flight {
 		this.arrival = arrival;
 		this.departure_time = departure_time;
 		this.duration = duration;
+		this.crewMembers = crewMembers;
+		this.crewflights = crewflights;
 	}
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -134,11 +138,20 @@ public class Flight {
 		this.crewflights = crewflights;
 	}
 
+	public String getCrewMembers() {
+		return crewMembers;
+	}
+
+	public void setCrewMembers(String crewMembers) {
+		this.crewMembers = crewMembers;
+	}
+
 	@Override
     public String toString() {
         return  "code=" + code + ", company=" + company + ", plane=" + plane.getTail_number()
         	+ ", departure=" + departure.getCode() + ", arrival=" + arrival.getCode()
-        	+ ", departure_date_time=" + departure_time + ", duration=" + duration;
+        	+ ", departure_date_time=" + departure_time + ", duration=" + duration
+        	+ ", crewMembers=" + crewMembers;
     }
 	
 }

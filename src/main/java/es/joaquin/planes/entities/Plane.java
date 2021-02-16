@@ -20,17 +20,22 @@ public class Plane {
 	
 	private Integer flight_hours;
 	
+	private String overhauls;
+	
 	public Plane() {
 		
 	}
-
-	public Plane(String tail_number, String manufacturer, String model, Integer flight_hours) {
+	
+	public Plane(Long id, String tail_number, String manufacturer, String model, Integer flight_hours,
+			String overhauls) {
+		this.id = id;
 		this.tail_number = tail_number;
 		this.manufacturer = manufacturer;
 		this.model = model;
 		this.flight_hours = flight_hours;
+		this.overhauls = overhauls;
 	}
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -71,10 +76,18 @@ public class Plane {
 		this.flight_hours = flight_hours;
 	}
 	
+	public String getOverhauls() {
+		return overhauls;
+	}
+
+	public void setOverhauls(String overhauls) {
+		this.overhauls = overhauls;
+	}
+
 	@Override
     public String toString() {
         return  "tail_number=" + tail_number + ", manufacturer=" + manufacturer + ", model=" + model
-        	+ ", flight_hours=" + flight_hours;
+        	+ ", flight_hours=" + flight_hours + ", overhauls=" + overhauls;
     }
 	
 }
