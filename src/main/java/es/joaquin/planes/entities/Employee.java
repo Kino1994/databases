@@ -19,7 +19,7 @@ public abstract class Employee {
 	private String surname;	
 
 	public Employee() {
-		super();
+
 	}
 
 	public Employee(String code, String name, String surname) {
